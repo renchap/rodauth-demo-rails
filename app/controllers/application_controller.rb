@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::Base
+
+  rescue_from ActionController::InvalidAuthenticityToken do
+    logger.error("invalid CSRF!")
+
+    render text: "Invalid CSRF", code: 422
+  end
+
   private
 
   def current_account
